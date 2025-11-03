@@ -1,0 +1,26 @@
+@import url('OvSv.css');
+
+.detail-wrap{ padding: 16px 20px 40px; }
+
+/* Hero section matching screenshot */
+.sounds-hero-2{ max-width:1100px; margin:20px auto 10px; display:grid; grid-template-columns:1.2fr .8fr; gap:24px; align-items:center }
+.sounds-hero__left{ color:var(--ink) }
+.sounds-heading{ margin:6px 0 6px; font-size:clamp(36px,6vw,64px); letter-spacing:.5px; text-shadow:0 3px 18px rgba(0,0,0,.45) }
+.sounds-summary{ margin:0; color:var(--ink-dim); max-width:660px; line-height:1.6 }
+.sounds-hero__right{ position:relative; min-height:160px }
+.note-blob{ display:none }
+.note-img{ position:absolute; right:-6px; top:-12px; width:min(34vw, 220px); height:auto; filter: drop-shadow(0 24px 40px rgba(0,0,0,.45)) saturate(115%); }
+
+/* Three facts cards */
+.sounds-facts{ max-width:1100px; margin:12px auto; display:grid; grid-template-columns:repeat(3, 1fr); gap:18px }
+.fact{ background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:14px 16px; color:var(--ink); box-shadow:0 6px 18px rgba(0,0,0,.25), inset 0 -40px 80px rgba(90,120,225,.15) }
+.fact h3{ margin:0 0 10px; font-size:14px }
+.fact p{ margin:0; color:var(--ink-dim) }
+.fact ul{ margin:0; padding-left:16px; color:var(--ink-dim); line-height:1.5 }
+
+@media (max-width: 900px){
+  .sounds-hero-2{ grid-template-columns:1fr }
+  .sounds-facts{ grid-template-columns:1fr }
+}
+
+

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wavound • Doppler Effect</title>
+  <link rel="stylesheet" href="OvSv.css" />
+</head>
+<body>
+  <!-- Top Nav -->
+  <header class="nav">
+    <div class="nav__brand">
+      <img class="logo-img" src="imgs/wavound.png" alt="wavound logo" />
+      <span></span>
+    </div>
+
+    <nav class="nav__links">
+      <a href="#">Home</a>
+      <a href="#" class="active">Topics</a>
+      <a href="#">Quiz</a>
+      <a href="#">About</a>
+    </nav>
+
+    <div class="nav__search">
+      <input type="search" placeholder="Search" />
+      <button class="search-btn" aria-label="Search">🔍</button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main class="hero">
+    <h1 class="title">Doppler Effect</h1>
+
+    <section class="stage" aria-label="Interactive Doppler Stage">
+      <!-- Person side -->
+      <div class="lane">
+        <div class="controls" aria-label="Person controls">
+          <button class="arrow" data-target="person" data-dir="-1" aria-label="Move person left">←</button>
+          <span class="dash"></span>
+          <button class="arrow" data-target="person" data-dir="1" aria-label="Move person right">→</button>
+        </div>
+
+        <div class="actor-wrap">
+          <!-- Simple inline SVG stick person -->
+          <svg id="person" class="actor" viewBox="0 0 48 48" width="76" height="76" aria-label="Person">
+            <circle cx="24" cy="9" r="6" fill="white"/>
+            <rect x="22" y="14" width="4" height="14" rx="2" fill="white"/>
+            <rect x="12" y="28" width="24" height="4" rx="2" fill="white"/>
+            <rect x="14" y="32" width="4" height="12" rx="2" fill="white"/>
+            <rect x="30" y="32" width="4" height="12" rx="2" fill="white"/>
+            <rect x="18" y="20" width="4" height="10" rx="2" transform="rotate(-30 20 25)" fill="white"/>
+            <rect x="26" y="20" width="4" height="10" rx="2" transform="rotate(30 28 25)" fill="white"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Vehicle side -->
+      <div class="lane">
+        <div class="controls" aria-label="Vehicle controls">
+          <button class="arrow" data-target="vehicle" data-dir="-1" aria-label="Move vehicle left">←</button>
+          <span class="dash"></span>
+          <button class="arrow" data-target="vehicle" data-dir="1" aria-label="Move vehicle right">→</button>
+        </div>
+
+        <div class="actor-wrap">
+          <!-- Simple inline SVG van -->
+          <svg id="vehicle" class="actor" viewBox="0 0 72 48" width="110" height="76" aria-label="Vehicle">
+            <rect x="3" y="14" width="66" height="18" rx="3" fill="white"/>
+            <rect x="9" y="6" width="36" height="16" rx="2" fill="white"/>
+            <rect x="49" y="6" width="14" height="10" rx="2" fill="white"/>
+            <rect x="11" y="10" width="12" height="8" rx="1.5" fill="#0b2a66"/>
+            <rect x="25" y="10" width="12" height="8" rx="1.5" fill="#0b2a66"/>
+            <circle cx="19" cy="38" r="6" fill="#0b2a66"/>
+            <circle cx="55" cy="38" r="6" fill="#0b2a66"/>
+            <circle cx="19" cy="38" r="3" fill="white"/>
+            <circle cx="55" cy="38" r="3" fill="white"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <button id="enterBtn" class="enter">ENTER</button>
+    <p class="hint">Press Enter to start/stop continuous movement.</p>
+  </main>
+
+  <script>
+    // State
+    const state = {
+      person: { x: -140, dir: 1 }, // start left, moving right
+      vehicle: { x: 140, dir: -1 } // start right, moving left
+    };
+
+    const bounds = {
+      left: -180,
+      right: 180
+    };
+
+    const personEl = document.getElementById('person');
+    const vehicleEl = document.getElementById('vehicle');
+    const enterBtn = document.getElementById('enterBtn');
+
+    function clamp(value, min, max) {
+      return Math.min(max, Math.max(min, value));
+    }
+
+    function render() {
+      personEl.style.transform = `translateX(${state.person.x}px)`;
+      vehicleEl.style.transform = `translateX(${state.vehicle.x}px)`;
+    }
+
+    function nudge(target, amount) {
+      const actor = state[target];
+      actor.x = clamp(actor.x + actor.dir * amount, bounds.left, bounds.right);
+    }
+
+    // Arrow click handlers: set direction; if running, go back to start and stop there
+    function updateArrowUI(target, dir){
+      const all = document.querySelectorAll(`.arrow[data-target="${target}"]`);
+      all.forEach(a => a.classList.toggle('active', Number(a.getAttribute('data-dir')) === dir));
+    }
+
+    document.querySelectorAll('.arrow').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-target');
+        const dir = Number(btn.getAttribute('data-dir'));
+        state[target].dir = dir;
+        updateArrowUI(target, dir);
+
+        // If currently running, set this actor to return to its start position and stop
+        if (isRunning) {
+          const desired = startSnapshot[target];
+          targets[target] = desired;
+          const delta = desired - state[target].x;
+          if (Math.abs(delta) < 0.5) {
+            state[target].x = desired;
+            targets[target] = null;
+            isRunning = false; // stop immediately if already there
+            render();
+          } else {
+            state[target].dir = Math.sign(delta) || 1;
+            updateArrowUI(target, state[target].dir);
+          }
+        }
+      });
+    });
+
+    // Continuous movement loop toggled by Enter
+    let isRunning = false;
+    let lastTs = 0;
+    const speedPxPerSec = { person: 90, vehicle: 140 };
+    const centerThreshold = 2; // px around center considered "middle"
+    const startSnapshot = { person: 0, vehicle: 0 };
+    const targets = { person: null, vehicle: null }; // when set, return to this x then stop
+
+    function tick(ts) {
+      if (!isRunning) return;
+      if (!lastTs) lastTs = ts;
+      const dt = (ts - lastTs) / 1000;
+      lastTs = ts;
+
+      // move each actor
+      nudge('person', speedPxPerSec.person * dt);
+      nudge('vehicle', speedPxPerSec.vehicle * dt);
+
+      // bounce on bounds to keep moving continuously
+      ['person','vehicle'].forEach(key => {
+        if (state[key].x <= bounds.left || state[key].x >= bounds.right) {
+          state[key].dir *= -1;
+          state[key].x = clamp(state[key].x, bounds.left, bounds.right);
+        }
+      });
+
+      // Determine intent based on arrows
+      const toward = state.person.dir === 1 && state.vehicle.dir === -1;
+      const away = state.person.dir === -1 && state.vehicle.dir === 1;
+
+      // Toward each other: stop precisely at middle
+      if (toward) {
+        const atCenter = Math.abs(state.person.x) <= centerThreshold && Math.abs(state.vehicle.x) <= centerThreshold;
+        if (atCenter) {
+          state.person.x = 0; state.vehicle.x = 0;
+          render();
+          isRunning = false;
+          return;
+        }
+      }
+
+      // handle return-to-start targets
+      // If arrows point away, both should return to their respective start positions
+      if (away) {
+        if (targets.person === null) targets.person = startSnapshot.person;
+        if (targets.vehicle === null) targets.vehicle = startSnapshot.vehicle;
+      }
+
+      let arrivedCount = 0; let targetsCount = 0;
+      ['person','vehicle'].forEach(key => {
+        if (targets[key] !== null) {
+          const targetX = targets[key];
+          const goingRight = state[key].dir > 0;
+          const passed = goingRight ? state[key].x >= targetX : state[key].x <= targetX;
+          if (passed) {
+            state[key].x = targetX;
+            targets[key] = null;
+            arrivedCount += 1;
+          }
+          targetsCount += 1;
+        }
+      });
+      // If away mode, stop when both have arrived; otherwise stop when any targeted actor arrives
+      if ((away && targetsCount > 0 && arrivedCount === targetsCount) || (!away && targetsCount > 0 && arrivedCount > 0)) {
+        render();
+        isRunning = false;
+        return;
+      }
+
+      render();
+      requestAnimationFrame(tick);
+    }
+
+    function toggleRun() {
+      isRunning = !isRunning;
+      lastTs = 0;
+      if (isRunning) {
+        // remember the start positions for potential return
+        startSnapshot.person = state.person.x;
+        startSnapshot.vehicle = state.vehicle.x;
+        targets.person = null; targets.vehicle = null;
+        requestAnimationFrame(tick);
+      }
+    }
+
+    enterBtn.addEventListener('click', toggleRun);
+
+    // Keyboard: Enter key toggles run (ignore key auto-repeat)
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.repeat) toggleRun();
+    });
+
+    render();
+    // initialize arrow UI states
+    updateArrowUI('person', state.person.dir);
+    updateArrowUI('vehicle', state.vehicle.dir);
+  </script>
+</body>
+</html>
