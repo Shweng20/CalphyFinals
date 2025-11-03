@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wavound • Classification of Sound</title>
+  <link rel="stylesheet" href="ClassificationSounds.css" />
+</head>
+<body>
+  <div class="background-art" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="nav__brand">
+      <img class="logo-img" src="imgs/wavound.png" alt="wavound logo" />
+      <span></span>
+    </div>
+
+    <nav class="nav__links">
+      <a href="OvSv.html">Home</a>
+      <a href="SoundsP1.html" class="active">Topics</a>
+      <a href="#">Quiz</a>
+      <a href="#">About</a>
+    </nav>
+
+    <div class="nav__search">
+      <input type="search" placeholder="Search" />
+      <button class="search-btn" aria-label="Search">🔍</button>
+    </div>
+  </header>
+
+  <main class="classification-hero">
+    <div class="classification-hero__inner">
+      <div class="classification-copy">
+        <h1>Classification of Sounds</h1>
+        <a class="classification-link" href="#">Based on Frequency</a>
+        <p>Sound can be classified according to frequency and regularity of vibration.</p>
+        <a class="back-btn" href="SoundsP1.html">Back to Home</a>
+      </div>
+
+      <div class="classification-cards" role="tablist" aria-label="Sound classifications">
+        <button class="classification-card active" type="button" role="tab" aria-selected="true">
+          <h2>Infrasonic Waves</h2>
+          <div class="card-detail">
+            <p><span>Frequency:</span> Below 20 Hz</p>
+            <p><span>Description:</span> Too low for human hearing</p>
+            <p><span>Example:</span> Earthquakes, elephant communication</p>
+          </div>
+        </button>
+        <button class="classification-card" type="button" role="tab" aria-selected="false">
+          <h2>Sonic Waves</h2>
+          <div class="card-detail">
+            <p><span>Frequency:</span> 20 Hz – 20 kHz</p>
+            <p><span>Description:</span> Within the range of human hearing</p>
+            <p><span>Example:</span> Music, speech</p>
+          </div>
+        </button>
+        <button class="classification-card" type="button" role="tab" aria-selected="false">
+          <h2>Ultrasonic Waves</h2>
+          <div class="card-detail">
+            <p><span>Frequency:</span> Above 20 kHz</p>
+            <p><span>Description:</span> Beyond the human hearing threshold</p>
+            <p><span>Example:</span> Medical imaging, bat echolocation</p>
+          </div>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const cards = document.querySelectorAll('.classification-card');
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        cards.forEach(c => {
+          const isActive = c === card;
+          c.classList.toggle('active', isActive);
+          c.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+

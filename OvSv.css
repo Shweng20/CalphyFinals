@@ -18,8 +18,8 @@
   }
   
 .nav{
-    height:80px;
-    padding:0 18px;
+    height:64px;
+    padding:0 24px;
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -38,7 +38,7 @@
   }
   
 /* replace logo box with image */
-.logo-img{ height:56px; width:auto; display:block; object-fit:contain }
+.logo-img{ height:44px; width:auto; display:block; object-fit:contain }
   
   .nav__links{
     display:flex;
