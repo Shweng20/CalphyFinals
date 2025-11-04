@@ -426,3 +426,206 @@ body{
   .quality-timbre-sub-box{ padding:24px 28px; }
 }
 
+/* Sample Problem Section */
+.sample-problem-section{
+  max-width:1200px;
+  margin:60px auto 0;
+  padding:0 32px 80px;
+  color:#ffffff;
+}
+
+.lesson-page-header{
+  font-size:16px;
+  font-weight:600;
+  color:rgba(255, 255, 255, 0.7);
+  letter-spacing:0.3px;
+  margin-bottom:32px;
+}
+
+.sample-problem-title{
+  margin:0 0 32px;
+  font-size:clamp(36px, 6vw, 56px);
+  font-weight:700;
+  color:rgba(255, 255, 255, 0.9);
+  letter-spacing:1px;
+}
+
+.problem-statement-box{
+  background:linear-gradient(135deg, rgba(51, 69, 234, 0.85), rgba(12, 28, 75, 0.95));
+  border:1px solid rgba(255, 255, 255, 0.15);
+  border-radius:20px;
+  padding:32px 40px;
+  margin-bottom:28px;
+  box-shadow:0 8px 20px rgba(3, 10, 34, 0.4);
+}
+
+.problem-statement-box p{
+  margin:0;
+  font-size:18px;
+  line-height:1.7;
+  color:#ffffff;
+  font-weight:500;
+}
+
+.solution-intro{
+  margin:0 0 40px;
+  font-size:16px;
+  line-height:1.7;
+  color:rgba(255, 255, 255, 0.9);
+  max-width:900px;
+}
+
+.problem-solution-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:32px;
+  align-items:start;
+}
+
+.given-formula-box,
+.solution-box{
+  background:linear-gradient(135deg, rgba(51, 69, 234, 0.85), rgba(12, 28, 75, 0.95));
+  border:1px solid rgba(255, 255, 255, 0.15);
+  border-radius:20px;
+  padding:36px 44px;
+  box-shadow:0 8px 20px rgba(3, 10, 34, 0.4);
+}
+
+.box-heading{
+  margin:0 0 24px;
+  font-size:22px;
+  font-weight:700;
+  color:#ffffff;
+  text-shadow:0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.given-values{
+  margin-bottom:24px;
+}
+
+.given-values p{
+  margin:0 0 12px;
+  font-size:16px;
+  line-height:1.6;
+  color:rgba(255, 255, 255, 0.95);
+  font-family:'Courier New', monospace;
+}
+
+.given-values p:last-child{
+  margin-bottom:0;
+}
+
+.formula-info{
+  padding-top:20px;
+  border-top:1px solid rgba(255, 255, 255, 0.15);
+}
+
+.formula-info p{
+  margin:0;
+  font-size:16px;
+  line-height:1.6;
+  color:rgba(255, 255, 255, 0.95);
+}
+
+.formula-info strong{
+  font-weight:600;
+  color:#ffffff;
+}
+
+.solution-steps{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.solution-step{
+  padding-bottom:20px;
+  border-bottom:1px solid rgba(255, 255, 255, 0.1);
+}
+
+.solution-step:last-of-type{
+  border-bottom:none;
+  padding-bottom:0;
+}
+
+.solution-step p{
+  margin:0 0 8px;
+  font-size:16px;
+  line-height:1.7;
+  color:rgba(255, 255, 255, 0.95);
+}
+
+.solution-step p:last-child{
+  margin-bottom:0;
+  font-family:'Courier New', monospace;
+}
+
+.solution-step strong{
+  font-weight:600;
+  color:#ffffff;
+}
+
+.final-answer{
+  margin-top:24px;
+  padding-top:24px;
+  border-top:2px solid rgba(255, 255, 255, 0.2);
+}
+
+.final-answer p{
+  margin:0 0 8px;
+  font-size:17px;
+  line-height:1.7;
+  color:#ffffff;
+}
+
+.final-answer p:last-child{
+  margin-bottom:0;
+  font-family:'Courier New', monospace;
+  font-weight:600;
+  font-size:18px;
+}
+
+.final-answer strong{
+  font-weight:700;
+  font-size:18px;
+}
+
+@media (max-width: 960px){
+  .sample-problem-section{ padding:0 24px 60px; }
+  .problem-solution-grid{ grid-template-columns:1fr; gap:28px; }
+  .given-formula-box,
+  .solution-box{ padding:32px 36px; }
+}
+
+@media (max-width: 768px){
+  .sample-problem-section{ margin:40px auto 0; padding:0 20px 50px; }
+  .sample-problem-title{ font-size:clamp(28px, 7vw, 40px); margin-bottom:28px; }
+  .problem-statement-box{ padding:28px 32px; }
+  .problem-statement-box p{ font-size:16px; }
+  .solution-intro{ font-size:15px; margin-bottom:32px; }
+  .given-formula-box,
+  .solution-box{ padding:28px 32px; }
+  .box-heading{ font-size:20px; margin-bottom:20px; }
+  .given-values p,
+  .formula-info p,
+  .solution-step p{ font-size:15px; }
+  .final-answer p{ font-size:16px; }
+  .final-answer p:last-child{ font-size:17px; }
+}
+
+@media (max-width: 540px){
+  .sample-problem-section{ padding:0 16px 40px; }
+  .sample-problem-title{ font-size:28px; }
+  .problem-statement-box{ padding:24px 28px; }
+  .problem-statement-box p{ font-size:15px; }
+  .solution-intro{ font-size:14px; }
+  .given-formula-box,
+  .solution-box{ padding:24px 28px; }
+  .box-heading{ font-size:18px; }
+  .given-values p,
+  .formula-info p,
+  .solution-step p{ font-size:14px; }
+  .final-answer p{ font-size:15px; }
+  .final-answer p:last-child{ font-size:16px; }
+}
+

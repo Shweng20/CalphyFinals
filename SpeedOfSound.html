@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wavound • Speed of Sound</title>
+  <link rel="stylesheet" href="SpeedOfSound.css" />
+</head>
+<body>
+  <div class="background-art" aria-hidden="true"></div>
+  
+  <header class="nav">
+    <div class="nav__brand">
+      <img class="logo-img" src="imgs/wavound.png" alt="wavound logo" />
+      <span></span>
+    </div>
+
+    <nav class="nav__links">
+      <a href="OvSv.html">Home</a>
+      <a href="SoundsP1.html" class="active">Topics</a>
+      <a href="#">Quiz</a>
+      <a href="#">About</a>
+    </nav>
+
+    <div class="nav__search">
+      <input type="search" placeholder="Search" />
+      <button class="search-btn" aria-label="Search">🔍</button>
+    </div>
+  </header>
+
+  <main class="speed-wrapper">
+    <div class="back-button-container">
+      <a href="SoundsDetail.html" class="back-arrow-btn" aria-label="Go back">←</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="speed-hero">
+      <h1 class="speed-title">Speed of Sound</h1>
+      <p class="speed-description">Sound travels at different speeds depending on the medium's elasticity, density, and temperature.</p>
+    </section>
+
+    <!-- Lesson Page Section -->
+    <section class="lesson-page-section">
+      
+      <div class="formula-section">
+        <h2 class="formula-title">Formula</h2>
+        
+        <div class="formula-cards">
+          <!-- Left Card: Formula Details -->
+          <div class="formula-card">
+            <h3 class="card-title">Speed in Other Mediums</h3>
+            <div class="formula-content">
+              <p class="formula-text">V = √(Y/p)</p>
+              <div class="formula-definitions">
+                <p><span>where:</span></p>
+                <p>V = speed</p>
+                <p>Y = modulus of elasticity</p>
+                <p>p = density</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Card: Speed Table -->
+          <div class="speed-table-card">
+            <table class="speed-table">
+              <thead>
+                <tr>
+                  <th>Medium</th>
+                  <th>Approx. speed (m/s)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Air</td>
+                  <td>343</td>
+                </tr>
+                <tr>
+                  <td>Water</td>
+                  <td>1,480</td>
+                </tr>
+                <tr>
+                  <td>Steel</td>
+                  <td>5,960</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Speed in Air Section 1 -->
+    <section class="lesson-page-section">
+      
+      <div class="formula-cards">
+        <!-- Left Card: Speed in Air (T ≤ 20°C) -->
+        <div class="formula-card">
+          <div class="formula-icon">V</div>
+          <h3 class="card-title">Speed in Air (T ≤ 20°C)</h3>
+          <div class="formula-content">
+            <p class="formula-text">V = 331.45 + 0.67T</p>
+          </div>
+        </div>
+
+        <!-- Right Card: Definitions -->
+        <div class="formula-card">
+          <h3 class="card-title">where:</h3>
+          <div class="formula-definitions">
+            <p>V = velocity (m/s)</p>
+            <p>T = temperature (°C)</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Speed in Air Section 2 -->
+    <section class="lesson-page-section">
+      
+      <div class="formula-cards">
+        <!-- Left Card: Speed in Air (T > 20°C) -->
+        <div class="formula-card">
+          <div class="formula-icon">V</div>
+          <h3 class="card-title">2. Speed in Air (T > 20°C)</h3>
+          <div class="formula-content">
+            <p class="formula-text">V = 331.45 × √(T<sub>k</sub> / 273)</p>
+            <p class="formula-note">where T<sub>k</sub> = temperature in Kelvin.</p>
+          </div>
+        </div>
+
+        <!-- Right Card: Speed in Ideal Gas -->
+        <div class="formula-card">
+          <h3 class="card-title">3. Speed in an Ideal Gas</h3>
+          <div class="formula-content">
+            <p class="formula-text">V = √(γRT / MW)</p>
+            <div class="formula-definitions">
+              <p><span>where:</span></p>
+              <p>γ = ratio of specific heats (1.4 for air)</p>
+              <p>R = gas constant (8.314 J/mol·K)</p>
+              <p>T = absolute temperature (K)</p>
+              <p>MW = molecular weight (kg/mol)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>
+
